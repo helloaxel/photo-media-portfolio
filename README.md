@@ -1,1 +1,1 @@
-# Personal-Web-MediaHub
+# Photography and digital media portfolio

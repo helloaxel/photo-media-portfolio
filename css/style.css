@@ -1,0 +1,33 @@
+
+img {
+    height: 50%;
+    width: 50%;
+}
+
+.home-btn,
+button[name="home"]{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 16px;
+    background: #000000;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: width .28s ease, border-radius .28s ease, background-color .20s ease, padding .28s ease;
+}
+
+.home-btn.circle,
+button[name="home"].circle {
+  width: 36px;         
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  background: #f3f3f3;
+  border: 10px;
+  border-radius: 20px;
+  border-color: #000000;
+  color: transparent;

@@ -1,33 +1,218 @@
+        :root{
+            --text: rgb(0, 0, 0);
+            --background-color: rgb(255, 255, 255);
+            --background-btn: rgb(0, 0, 0);
+            --background-btn-inverse: rgb(255, 255, 255);
+        }
+    
 
-img {
-    height: 50%;
-    width: 50%;
-}
+        body {
+            overflow-x: hidden;
+            color: var(--color);
+            background-color: var(--background-color);
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: lighter;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-.home-btn,
-button[name="home"]{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 40px;
-    height: 40px;
-    padding: 0 16px;
-    background: #000000;
-    border: none;
-    border-radius: 100px;
-    cursor: pointer;
-    overflow: hidden;
-    transition: width .28s ease, border-radius .28s ease, background-color .20s ease, padding .28s ease;
-}
+        nav {
+            padding: 1em;
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s ease;
+        }
 
-.home-btn.circle,
-button[name="home"].circle {
-  width: 36px;         
-  height: 36px;
-  padding: 0;
-  border-radius: 50%;
-  background: #f3f3f3;
-  border: 10px;
-  border-radius: 20px;
-  border-color: #000000;
-  color: transparent;
+        footer{
+            display: inline;
+            position: absolute;
+            margin: 1% 0;
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s ease;
+        }
+        
+        figcaption {
+            position: absolute;
+            align-items: right;
+            bottom: 5%;
+            right: 0;
+            color: var(--text);
+        }
+        /* -----------------------------
+           Gallery layout (parent)
+           ----------------------------- */
+        /* container: center group and provide a positioning context */
+        .gallery {
+            position: relative;
+            width: 100%;
+            max-width: 1300px;            /* constrains group width */
+            height: min(65vh, 700px);     /* vertical space proportional to viewport */
+            margin: calc((100vh - min(65vh,700px)) / 2) auto 0; /* vertically center the gallery block in viewport */
+            display: block;
+            overflow: visible;
+            touch-action: manipulation;
+        }
+        
+        /* -----------------------------
+           Gallery items (cards)
+           ----------------------------- */
+        /* each card is absolutely positioned around the center */
+        .gallery-item {
+            position: absolute;
+            top: 60%;
+            left: 60%;
+            transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 0));
+            width: clamp(160px, 25vw, 380px); /* responsive visual width */
+            height: clamp(240px, 40vh, 570px);
+            z-index: var(--z, 1);
+            transition: transform 320ms cubic-bezier(.2,.9,.2,1), box-shadow 200ms ease, filter 200ms;
+            will-change: transform;
+            pointer-events: auto;
+        }
+
+        .gallery-item img {
+            display: block;
+            width: 100%;
+            height: 89%;
+            object-fit: cover;
+        }
+
+        .gallery-item:hover,
+        .gallery-item:focus-within,
+        .gallery-item:focus {
+            transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 0)) scale(1.06);
+            z-index: calc(var(--z, 1) + 10);
+            filter: saturate(1.05) contrast(1.02);
+        }
+
+        .gallery-item:focus-within {
+            outline: 3px solid rgba(0,0,0,0.08);
+            outline-offset: 6px;
+        }
+
+        /* per-item positions from center */
+        #project-1 { --tx: -30vw;  --ty: 4vh; --z: 6; }
+        #project-2 { --tx: -25vw;  --ty: -8vh;  --z: 5; }
+        #project-3 { --tx: -16vw;  --ty: -17vh;  --z: 4; } /* center card */
+        #project-4 { --tx: -10vw;   --ty: -28vh;  --z: 3; }
+        #project-5 { --tx: 0vw;  --ty: -32vh;    --z: 2; }
+        #project-6 { --tx: 7vw;  --ty: -38vh;    --z: 1; }
+        
+        
+        /* -----------------------------
+        Responsive adjustments
+        ----------------------------- */
+
+        @media(min-width: 900px){
+
+            body{
+                overflow-y: hidden;
+            }
+
+
+        }
+        
+        @media (max-width: 900px) {
+            .gallery { height: min(60vh,600px); margin: calc((100vh - min(60vh,600px)) / 2) auto 0; }
+            .gallery-item { width: clamp(140px, 28vw, 330px);}
+            #project-1 { --tx: -30vw;  --ty: 4vh;}
+            #project-2 { --tx: -25vw;  --ty: -8vh;}
+            #project-3 { --tx: -16vw;  --ty: -17vh;} 
+            #project-4 { --tx: -10vw;   --ty: -28vh;}
+            #project-5 { --tx: 0vw;  --ty: -32vh;}
+            #project-6 { --tx: 7vw;  --ty: -38vh;}
+        }
+
+        @media (max-width: 500px) {
+            /* stack vertically on small screens */
+            .gallery { height: auto; margin: 3rem auto; padding: 2rem 0;}
+            .gallery-item { position: relative; transform: none; left: auto; top: auto; width: 90%; margin: 0 auto 1.25rem; display: block; }
+            .gallery-item img { width: 100%; height: auto; object-fit: contain; }
+            #project-1,#project-2,#project-3,#project-4,#project-5,#project-6 { --tx: 0; --ty: 0; --z: 1; }
+
+            footer{
+                position: relative;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-item { transition: none; }
+            .gallery-item:hover { transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 0)); }
+        }
+
+        @media(prefers-color-scheme: dark){
+            :root{
+                --text: rgb(255, 255, 255);
+                --background-color: rgb(0, 0, 0);
+                --background-btn: rgb(255,255,255);
+                --background-btn-inverse: rgb(0, 0, 0);
+            }
+        }
+
+        [data-theme = 'dark']{
+            --text: rgb(255,255,255);
+            --background-color: rgb(0, 0, 0); 
+            --background-btn: rgb(255,255,255);
+            --background-btn-inverse: rgb(0, 0, 0);
+        }
+        
+        [data-theme = 'light']{
+            --text: rgb(0, 0, 0);
+            --background-color: rgb(255, 255, 255);
+            --background-btn: rgb(0, 0, 0);
+            --background-btn-inverse: rgb(255, 255, 255);
+        }
+
+
+
+        .home-btn,
+        button[name="home"]{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 30px;
+            width: 20px;
+            padding: 0 16px;
+            background: var(--background-btn);
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: width .15s linear, border-radius .15s linear, background-color .15s linear, padding .15s linear;
+        }
+        
+
+        .home-btn.circle,
+        button[name="home"].circle {
+            height: 30px;
+            width: 20px;     
+            background: var(--background-btn-inverse);
+            border-radius: 100px;
+            transform: scale(0.5, 0.5);
+        }
+
+        .toggle-mode{
+            display: inline-flex;
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: flex-end;
+            margin-left: auto;
+            margin-right: 4rem;
+            min-width: 40px;
+            height: auto;
+            background: var(--background-color);
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .toggle-mode span { 
+            font-size: 1.8rem; /*the toggle-icon is interpreted as text (Unicode)*/
+            color: var(--text);
+            transition: color 0.3s ease;
+
+        
+        }
+

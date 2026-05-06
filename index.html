@@ -1,101 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset=" utf-8">
-        <title></title>
-        <meta name="viewport" content="width=device-width"/>
-        <link rel="stylesheet" href="css/style.css">
-       <link rel="icon" sizes=""  type=""  href="" />
-    </head>
-    <body>
-        <button class="home-btn" type="button"></button>
 
-        <div class="gallery" role="list" aria-label="Featured projects">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" sizes="" type="" href="" />
+    <script> 
+        {
+            const saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);         
+        }
+    </script>
+</head>
 
-            <figure class="gallery-item" role="listitem">
-                <picture>
-                    <source type="image/webp" srcset="assets/images/FillesEuropees-009837--02.webp 1830w">
-                    <img src="assets/images/FillesEuropees-009837--02.jpg"
-                         srcset="assets/images/FillesEuropees-009837--02.jpg 1830w"
-                         sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px"
-                         alt="Project 1 - Filles Europees Cover"
-                         loading="lazy"
-                         width="1830" height="2751">
-                </picture>
-                <figcaption>Project Cover</figcaption>
-            </figure>
+<body>
+    <nav>
+        <button class="home-btn" type="button" width="40" height="40"></button>
+        <button class="toggle-mode" type="button">
+            <span role="button" aria-label="sun" width="40" height="40">&#9788;</span>
+        </button>   
+    </nav>
 
-            <figure class="gallery-item" role="listitem">
-                <picture>
-                    <source type="image/webp" srcset="assets/images/05_Insomnia.webp 1024w">
-                    <img src="assets/images/05_Insomnia.jpg"
-                         srcset="assets/images/05_Insomnia.jpg 1024w"
-                         sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px"
-                         alt="Project 2-Insomnia Cover"
-                         loading="lazy"
-                         width="1024" height="1024">
-                </picture>
-                <figcaption>Insomnia</figcaption>
-            </figure>
+    <div class="gallery" role="list" aria-label="Featured projects">
 
-            <figure class="gallery-item" role="listitem">
-                <picture>
-                    <source type="image/webp" srcset="assets/images/01_Faceshopping.webp 1920w">
-                    <img src="assets/images/01_Faceshopping.jpg"
-                         srcset="assets/images/01_Faceshopping.jpg 1920w"
-                         sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px"
-                         alt="Project 3-Faceshopping Cover"
-                         loading="lazy"
-                         width="1920" height="2866">
-                </picture>
-                <figcaption>FaceShopping</figcaption>
-            </figure>
+        <figure class="gallery-item" id="project-1" role="listitem">
+            <picture>
+                <source type="image/webp" srcset="assets/images/FillesEuropees-009837--02.webp 1830w">
+                <img src="assets/images/FillesEuropees-009837--02.jpg"
+                    srcset="assets/images/FillesEuropees-009837--02.jpg 1830w"
+                    sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px"
+                    alt="Project 1 - Filles Europees Cover" loading="lazy" width="1830" height="2751">
+            </picture>
+            <figcaption>Adéu-siau, Filles Europees</figcaption>
+        </figure>
 
-            <figure class="gallery-item" role="listitem">
-                <picture>
-                    <source type="image/webp" srcset="assets/images/Ecommerce_GhostWorld__01.webp 1729w">
-                    <img src="assets/images/Ecommerce_GhostWorld__01.jpg"
-                         srcset="assets/images/Ecommerce_GhostWorld__01.jpg 1729w"
-                         sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px"
-                         alt="Project 4-GhostWorld Cover"
-                         loading="lazy"
-                         width="1729" height="1146">
-                </picture>
-                <figcaption>GhostWorld</figcaption>
-            </figure>
+        <figure class="gallery-item" id="project-2" role="listitem">
+            <picture>
+                <style border: 2px solid #000></style>
+                <source type="image/webp" srcset="assets/images/05_Insomnia.webp 1024w">
+                <img style= "border: 1px solid #000" src="assets/images/05_Insomnia.jpg" srcset="assets/images/05_Insomnia.jpg 1024w"
+                    sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px" alt="Project 2-Insomnia Cover"
+                    loading="lazy" width="1024" height="1024">
+            </picture>
+            <figcaption>Insomnia</figcaption>
+        </figure>
 
-            <figure class="gallery-item" role="listitem">
-                <picture>
-                    <source type="image/webp" srcset="assets/images/MaiorisDecima_00.webp 1920w">
-                    <img src="assets/images/MaiorisDecima_00.jpg"
-                         srcset="assets/images/MaiorisDecima_00.jpg 1920w"
-                         sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px"
-                         alt="Project 5 - Personal Projects Cover"
-                         loading="lazy"
-                         width="1920" height="2896">
-                </picture>
-                <figcaption>Personal Projects</figcaption>
-            </figure>
+        <figure class="gallery-item" id="project-3" role="listitem">
+            <picture>
+                <source type="image/webp" srcset="assets/images/01_Faceshopping.webp 1920w">
+                <img src="assets/images/01_Faceshopping.jpg" srcset="assets/images/01_Faceshopping.jpg 1920w"
+                    sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px" alt="Project 3-Faceshopping Cover"
+                    loading="lazy" width="1920" height="2866">
+            </picture>
+            <figcaption>FaceShopping</figcaption>
+        </figure>
 
-            <figure class="gallery-item" role="listitem">
-                <picture>
-                    <source type="image/webp" srcset="assets/images/Portraits_Laia_01.webp 1036w">
-                    <img src="assets/images/Portraits_Laia_01.jpg"
-                         srcset="assets/images/Portraits_Laia_01.jpg 1036w"
-                         sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px"
-                         alt="Project 6-Portraits Cover"
-                         loading="lazy"
-                         width="1036" height="1587">
-                </picture>
-                <figcaption>Portraits</figcaption>
-            </figure>
+        <figure class="gallery-item" id="project-4" role="listitem">
+            <picture>
+                <source type="image/webp" srcset="assets/images/Ecommerce_GhostWorld__01.webp 1729w">
+                <img src="assets/images/Ecommerce_GhostWorld__01.jpg"
+                    srcset="assets/images/Ecommerce_GhostWorld__01.jpg 1729w"
+                    sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px" alt="Project 4-GhostWorld Cover"
+                    loading="lazy" width="1729" height="1146">
+            </picture>
+            <figcaption>GhostWorld</figcaption>
+        </figure>
 
-        </div>
+        <figure class="gallery-item" id="project-5" role="listitem">
+            <picture>
+                <source type="image/webp" srcset="assets/images/MaiorisDecima_00.webp 1920w">
+                <img src="assets/images/MaiorisDecima_00.jpg" srcset="assets/images/MaiorisDecima_00.jpg 1920w"
+                    sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px"
+                    alt="Project 5 - Personal Projects Cover" loading="lazy" width="1920" height="2896">
+            </picture>
+            <figcaption>Personal Projects</figcaption>
+        </figure>
 
-        <footer>
-            <h5>2026</h5>
-        </footer>
+        <figure class="gallery-item" id="project-6" role="listitem">
+            <picture>
+                <source type="image/webp" srcset="assets/images/Portraits_Laia_01.webp 1036w">
+                <img src="assets/images/Portraits_Laia_01.jpg" srcset="assets/images/Portraits_Laia_01.jpg 1036w"
+                    sizes="(max-width:600px) 90vw, (max-width:1200px) 50vw, 400px" alt="Project 6-Portraits Cover"
+                    loading="lazy" width="1036" height="1587">
+            </picture>
+            <figcaption>Portraits</figcaption>
+        </figure>
 
-        <script src="js/main.js"></script>
-    </body>
+    </div>
+
+    <footer>
+        <h5>2026</h5>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
 </html>

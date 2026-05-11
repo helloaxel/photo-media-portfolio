@@ -5,7 +5,14 @@ document.querySelector('.home-btn').addEventListener('click', e => {
   btn.addEventListener('transitionend', () => {
     btn.classList.remove('circle');
   }, { once: true }); // deletes the listener after execution in order to avoid accumulations
-});
+
+  if (location.pathname === '/' || location.pathname.includes('index.html')){
+    location.reload();
+  } else {
+    (location.assign('../index.html'));
+    
+  }
+})
 
 const toggle = document.querySelector('.toggle-mode');
 

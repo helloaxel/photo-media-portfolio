@@ -1,0 +1,133 @@
+         :root{
+             
+            --text: rgb(0, 0, 0);
+            --background-color: rgb(255, 255, 255);
+            --background-btn: rgb(0, 0, 0);
+            --background-btn-inverse: rgb(255, 255, 255);
+        }
+    
+         body {
+            overflow-x: hidden;
+            color: var(--text);
+            background-color: var(--background-color);
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: lighter;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            padding-bottom: 1em;
+        }
+        
+        nav {
+            padding: 1em;
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s ease;
+        }
+
+
+
+
+        .title {
+            position: fixed;
+            width: fit-content;
+            height: 30vh;
+            margin: calc((100vh - min(30vh)) / 2) 10vw 0; 
+            display: block;
+
+        }
+
+
+        .gallery {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;            
+            min-height: min(75vh, 800px);    
+            margin-left: 45vw;
+            display: block;
+            overflow: visible;
+
+        }
+
+        .gallery-p1 img{
+            display: block;
+            width: 40vw;
+            height: auto;
+            margin-bottom: 5%;
+        }
+
+
+        @media(prefers-color-scheme: dark){
+            :root{
+                --text: rgb(255, 255, 255);
+                --background-color: rgb(0, 0, 0);
+                --background-btn: rgb(255,255,255);
+                --background-btn-inverse: rgb(0, 0, 0);
+            }
+        }
+
+        [data-theme = 'dark']{
+            --text: rgb(255,255,255);
+            --background-color: rgb(0, 0, 0); 
+            --background-btn: rgb(255,255,255);
+            --background-btn-inverse: rgb(0, 0, 0);
+        }
+        
+        [data-theme = 'light']{
+            --text: rgb(0, 0, 0);
+            --background-color: rgb(255, 255, 255);
+            --background-btn: rgb(0, 0, 0);
+            --background-btn-inverse: rgb(255, 255, 255);
+        }
+
+        
+        .home-btn,
+        button[name="home"]{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 30px;
+            width: 20px;
+            padding: 0 16px;
+            background: var(--background-btn);
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: width .15s linear, border-radius .15s linear, background-color .15s linear, padding .15s linear;
+        }
+        
+
+        .home-btn.circle,
+        button[name="home"].circle {
+            height: 30px;
+            width: 20px;     
+            background: var(--background-btn-inverse);
+            border-radius: 100px;
+            transform: scale(0.5, 0.5);
+        }
+
+        .toggle-mode{
+            display: inline-flex;
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: flex-end;
+            margin-left: auto;
+            margin-right: 4rem;
+            min-width: 40px;
+            height: auto;
+            background: var(--background-color);
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .toggle-mode span { 
+            font-size: 1.8rem; 
+            color: var(--text);
+            transition: color 0.3s ease;
+
+        
+        }

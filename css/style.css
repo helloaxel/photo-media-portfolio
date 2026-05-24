@@ -93,12 +93,12 @@
         }
 
         /* per-item positions from center */
-        #project-1 { --tx: -30vw;  --ty: 4vh; --z: 6; }
-        #project-2 { --tx: -25vw;  --ty: -8vh;  --z: 5; }
-        #project-3 { --tx: -16vw;  --ty: -17vh;  --z: 4; } /* center card */
-        #project-4 { --tx: -10vw;   --ty: -28vh;  --z: 3; }
-        #project-5 { --tx: 0vw;  --ty: -32vh;    --z: 2; }
-        #project-6 { --tx: 7vw;  --ty: -38vh;    --z: 1; }
+        .position-1 { --tx: -30vw;  --ty: 4vh; --z: 6; }
+        .position-2 { --tx: -25vw;  --ty: -8vh;  --z: 5; }
+        .position-3 { --tx: -16vw;  --ty: -17vh;  --z: 4; } /* center card */
+        .position-4 { --tx: -10vw;   --ty: -28vh;  --z: 3; }
+        .position-5 { --tx: 0vw;  --ty: -32vh;    --z: 2; }
+        .position-6 { --tx: 7vw;  --ty: -38vh;    --z: 1; }
         
         
         /* -----------------------------

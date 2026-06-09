@@ -27,3 +27,23 @@ const saved = localStorage.getItem('theme');
 if (saved) {
   document.documentElement.setAttribute('data-theme', saved);
 }
+
+
+
+const projects = document.querySelectorAll('.gallery-item');
+
+projects.forEach(item => {
+  item.addEventListener('click', (event) => {
+    const id = event.currentTarget.id;
+
+      switch (id) {
+        case 'project-1':
+            location.assign('./projects/filles_europees.html');
+            break;
+        case 'project-2':
+          location.assign('./projects/insomnia.html');
+          break;
+      }
+
+  });
+});

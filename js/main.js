@@ -37,10 +37,10 @@ projects.forEach(item => {
     const id = event.currentTarget.id;
 
       switch (id) {
-        case 'project-1':
+        case 'filles_eu':
             location.assign('./projects/filles_europees.html');
             break;
-        case 'project-2':
+        case 'insomnia':
           location.assign('./projects/insomnia.html');
           break;
       }

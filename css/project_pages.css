@@ -18,6 +18,10 @@
          }
 
 
+         body:has(.project-page-horizontal) {
+             overflow-y: hidden;
+         }
+
          body:has(.project-page-horizontal) header {
              position: fixed;
              bottom: 0;
@@ -25,7 +29,6 @@
          }
 
          body:has(.project-page-horizontal) .title-horizontal {
-             overflow-y: hidden;
              position: fixed;
              bottom: 4rem;
              margin: 0 10vw;
@@ -64,13 +67,21 @@
 
          h1 {
              position: absolute;
-             bottom: 3rem;
+             bottom: 7rem;
          }
 
          p {
              position: absolute;
              bottom: 0;
          }
+
+         a:link,
+         :visited {
+             color: var(--text);
+         }
+
+
+
 
 
          /* 3 tipos de clases y sus especificidades */
@@ -109,10 +120,11 @@
              display: flex;
              align-items: flex-start;
              overflow: scroll;
+             bottom: 1rem;
          }
 
          .project-page-horizontal img {
-             height: 74vh;
+             height: 64vh;
              margin: -14px;
              width: auto;
          }
@@ -124,8 +136,22 @@
 
 
 
+         @supports (scrollbar-color: auto) {
+             .project-page-horizontal,
+             .project-page-vertical {
+                 scrollbar-width: none;
+             }
+            
+         }
 
+         @supports selector(::-webkit-scrollbar) {
+             .project-page-horizontal::-webkit-scrollbar,
+             .project-page-vertical::-webkit-scrollbar {
+                 display: none;
+             }
 
+        
+         }
 
          @media(prefers-color-scheme: dark) {
              :root {

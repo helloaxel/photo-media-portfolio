@@ -17,25 +17,6 @@
              padding-bottom: 1em;
          }
 
-
-         body:has(.project-page-horizontal) {
-             overflow-y: hidden;
-         }
-
-         body:has(.project-page-horizontal) header {
-             position: fixed;
-             bottom: 0;
-             width: 100%;
-         }
-
-         body:has(.project-page-horizontal) .title-horizontal {
-             position: fixed;
-             bottom: 4rem;
-             margin: 0 10vw;
-         }
-
-
-
          nav {
              padding: 1em;
              display: flex;
@@ -48,13 +29,23 @@
 
 
 
-         .title-vertical {
-             position: static;
-             width: fit-content;
-             height: 30vh;
-             margin: calc((100vh - min(30vh)) / 2) 10vw 0;
-             display: block;
+         /* --------------------------------------------------*/
 
+         body:has(.project-page-horizontal) {
+             overflow-y: hidden;
+         }
+
+         body:has(.project-page-horizontal) header {
+             position: fixed;
+             bottom: 0;
+             width: 100%;
+         }
+
+
+         body:has(.project-page-horizontal) .title-horizontal {
+             position: fixed;
+             bottom: 4rem;
+             margin: 0 10vw;
          }
 
          .title-horizontal {
@@ -63,23 +54,54 @@
              display: flex;
          }
 
+         .title-horizontal
          h1 {
              position: absolute;
              bottom: 7rem;
          }
 
+         .title-horizontal
          p {
              position: absolute;
              bottom: 0;
          }
 
-         a:link,
-         :visited {
-             color: var(--text);
+
+         /* ---------------------------------------------------------- */
+
+         body:has(.project-page-vertical) {
+             overflow: hidden;
+             height: 100vh;
+
+         }
+
+         body:has(.project-page-vertical) .title-vertical {
+             position: fixed;
+             margin: 20rem 10rem;
+
+
+         }
+
+         .title-vertical {
+             width: 25vw;
+             height: 30vh;
+             display: flex;
+             flex-direction: column;
+             gap: 0.5rem;
+
+         }
+
+         .title-vertical h1,
+         .title-vertical p {
+            position: static;
          }
 
 
 
+         a:link,
+         :visited {
+             color: var(--text);
+         }
 
 
          /* 3 tipos de clases y sus especificidades */
@@ -96,20 +118,23 @@
 
 
          .project-page-vertical {
-             display: block;
-             overflow: visible;
-             max-width: 1200px;
-             min-height: min(75vh, 800px);
+             display: inline-block;
+             align-items: flex-start;
+             overflow-y: scroll;
+             overflow-x: hidden;
+             height: 100vh;
              margin-left: 45vw;
 
          }
 
          .project-page-vertical img {
-             display: block;
+             display: inline-block;
              width: 40vw;
              height: auto;
-             margin-bottom: 5%;
+             margin-bottom: 10vh;
          }
+
+        
 
          /* --------------Horizontal display----------------*/
 
@@ -133,20 +158,22 @@
          /* ------------------------------*/
 
          @supports (scrollbar-color: auto) {
+
              .project-page-horizontal,
              .project-page-vertical {
                  scrollbar-width: none;
              }
-            
+
          }
 
          @supports selector(::-webkit-scrollbar) {
+
              .project-page-horizontal::-webkit-scrollbar,
              .project-page-vertical::-webkit-scrollbar {
                  display: none;
              }
 
-        
+
          }
 
          @media(prefers-color-scheme: dark) {

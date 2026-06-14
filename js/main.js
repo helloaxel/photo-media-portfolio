@@ -47,3 +47,8 @@ projects.forEach(item => {
 
   });
 });
+
+document.querySelector('.project-page-horizontal').addEventListener('wheel', e => {
+  e.preventDefault();
+  e.currentTarget.scrollLeft += e.deltaY;
+});

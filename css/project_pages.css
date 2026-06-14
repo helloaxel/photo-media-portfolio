@@ -47,8 +47,6 @@
          }
 
 
-         /*También pasarán a tener valores variables*/
-
 
          .title-vertical {
              position: static;
@@ -133,8 +131,6 @@
          .project-page-grid {}
 
          /* ------------------------------*/
-
-
 
          @supports (scrollbar-color: auto) {
              .project-page-horizontal,

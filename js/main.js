@@ -30,25 +30,6 @@ if (saved) {
 
 
 
-const projects = document.querySelectorAll('.gallery-item');
-
-projects.forEach(item => {
-  item.addEventListener('click', (event) => {
-    const id = event.currentTarget.id;
-
-      switch (id) {
-        case 'filles_eu':
-            location.assign('./projects/filles_europees.html');
-            break;
-        case 'insomnia':
-          location.assign('./projects/insomnia.html');
-          break;
-      }
-
-  });
-});
-
-
 const horizontalPage = document.querySelector('.project-page-horizontal');
 
 if(horizontalPage){

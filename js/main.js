@@ -27,3 +27,16 @@ const saved = localStorage.getItem('theme');
 if (saved) {
   document.documentElement.setAttribute('data-theme', saved);
 }
+
+
+
+const horizontalPage = document.querySelector('.project-page-horizontal');
+
+if(horizontalPage){
+
+ horizontalPage.addEventListener('wheel', e => {
+  e.preventDefault();
+  e.currentTarget.scrollLeft += e.deltaY;
+ });
+  
+}

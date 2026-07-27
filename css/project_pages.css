@@ -67,8 +67,8 @@
          }
 
 
+         
          /* ---------------------------------------------------------- */
-
          body:has(.project-page-vertical) {
              overflow: hidden;
              height: 100vh;
@@ -96,6 +96,17 @@
             position: static;
          }
 
+         /* ----------------------------------------------------------*/
+
+         body:has(.project-page-grid){
+            height: auto;
+         }
+
+         .title-grid {
+            position: fixed;
+            margin: 0rem, 8rem;
+
+         }
 
 
          a:link,
@@ -140,6 +151,7 @@
 
 
          .project-page-horizontal {
+            margin: 35px;
              display: flex;
              align-items: flex-start;
              overflow: scroll;
@@ -151,11 +163,32 @@
              margin: -14px;
              width: auto;
          }
+         
+         /* --------------Mosaic Grid----------------*/
 
+         .project-page-grid {
+            display: block;
+            margin-left: 4vw;
+            margin-top: 10vw;
+            align-items: flex-start;
+            overflow-y: scroll;
+            overflow-x: hidden;
 
-         .project-page-grid {}
+         }
 
-         /* ------------------------------*/
+         .project-page-grid img { /*dipticos: añadir id o diferenciador*/
+            height: 3vh;
+            width: 4vw;
+            margin: 5vw;
+         }
+
+         .project-page-grid img {  /*imágenes individuales*/
+            height: 2.5vh;
+            width: 1.8vw;
+         }
+
+         /* --------------Mosaic Grid----------------*/
+
 
          @supports (scrollbar-color: auto) {
 

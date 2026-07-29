@@ -214,6 +214,32 @@
          /* ------------------------------*/
 
 
+
+         @media(max-width: 767px) {
+
+             .project-page-grid {
+
+                 display: grid;
+                 gap: 20px;
+                 width: 100%;
+                 max-width: 767px;
+                 margin: 2% 12%;
+
+             }
+
+             .grid-column-group {
+
+                 display: grid;
+                 grid-column: 1;
+                 gap: 15px;
+                 width: 100%;
+                 align-content: start;
+
+             }
+
+
+         }
+
          @supports (scrollbar-color: auto) {
 
              .project-page-horizontal,

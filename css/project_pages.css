@@ -169,23 +169,26 @@
              width: 30vw;
              max-width: 700px;
              margin: 2% 5%;
-             transform: scale(1); /*Scale reference. Avoids overlapping within columns*/
-            }
-            
-            .grid-column-group {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-                width: 50%;
-                align-content: start;
-            }
-            
-            .gallery-p6 {
-                width: 100%;
-                height: auto;
-                margin: 0;
-                overflow: hidden;
-                transition: transform 0.3s ease-in-out; /*Dictates how to come back to the og scale. */
+             transform: scale(1);
+             /*Scale reference. Avoids overlapping within columns*/
+         }
+
+         .grid-column-group {
+             display: grid;
+             grid-template-columns: 1fr 1fr;
+             gap: 15px;
+             width: 50%;
+             align-content: start;
+         }
+
+         .gallery-p6 {
+             width: 100%;
+             height: auto;
+             margin: 0;
+             overflow: hidden;
+             transition: transform 0.1s ease-in-out;
+             /*Dictates how to come back to the og scale. */
+             cursor: pointer;
          }
 
          .project-page-grid img {
@@ -204,12 +207,36 @@
 
          /* ------------------------------*/
 
-            .gallery-p6:hover {
-                transform: scale(2.5);
+         .gallery-p6:hover {
+             transform: scale(2.5);
              transition: transform 0.3s ease-in-out;
+             border-radius: 5%;
 
          }
 
+
+         .lightbox {
+             display: none;
+             position: fixed;
+             inset: 0;
+             background-color: rgba(255, 235, 205, 0.03);
+             backdrop-filter: blur(10px);
+             z-index: 100;
+             justify-content: center;
+             align-items: center;
+         }
+
+         .lightbox.active {
+             display: flex;
+         }
+
+         .full-view-img {
+
+             width: 35%;
+             height: auto;
+             margin: 20%, 30%;
+
+         }
 
          /* ------------------------------*/
 

@@ -40,3 +40,21 @@ if(horizontalPage){
  });
   
 }
+
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+document.querySelector('.project-page-grid').addEventListener('click', e => {
+    const img = e.target.closest('img');
+     if(!img) return;
+
+    lightboxImg.src = img.src;
+
+    lightbox.classList.add('active');
+    
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });

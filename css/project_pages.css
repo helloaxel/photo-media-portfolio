@@ -27,11 +27,12 @@
              transition: background-color 0.3s, color 0.3s ease;
          }
 
-         .sticky-header{
-            position: sticky;
-            top: 0;
-            background-color: var(--background-color);
-            transition: background-color 0.3s ease;
+         .sticky-header {
+             position: sticky;
+             top: 0;
+             background-color: var(--background-color);
+             transition: background-color 0.3s ease;
+             z-index: 1;
          }
 
 
@@ -111,14 +112,14 @@
 
          .title-grid {
 
-            padding-left: 6rem;
-            margin-top: -3rem;
-            margin-bottom: 5rem;
+             padding-left: 6rem;
+             margin-top: -3rem;
+             margin-bottom: 5rem;
          }
 
          .title-grid h1 {
-            margin: 0;
-            margin-bottom: 1rem;
+             margin: 0;
+             margin-bottom: 1rem;
          }
 
 
@@ -180,7 +181,6 @@
          /* --------------Mosaic Grid----------------*/
 
 
-
          .project-page-grid {
              display: flex;
              gap: 40px;
@@ -237,8 +237,8 @@
              display: none;
              position: fixed;
              inset: 0;
-             background-color: rgba(255, 235, 205, 0.03);
-             backdrop-filter: blur(10px);
+             background-color: rgba(255, 255, 255, 0.493);
+             backdrop-filter: blur(40px);
              z-index: 100;
              justify-content: center;
              align-items: center;
@@ -250,9 +250,8 @@
 
          .full-view-img {
 
-             width: 35%;
+             width: 80%;
              height: auto;
-             margin: 20%, 30%;
 
          }
 
@@ -260,30 +259,51 @@
 
 
 
+
          @media(max-width: 767px) {
 
              .project-page-grid {
 
-                 display: grid;
+                 display: flex;
+                 flex-direction: column;
                  gap: 20px;
                  width: 100%;
-                 max-width: 767px;
-                 margin: 2% 12%;
+                 margin: 0;
+                 padding: 0 14px;
 
              }
 
              .grid-column-group {
 
                  display: grid;
-                 grid-column: 1;
-                 gap: 15px;
-                 width: 100%;
-                 align-content: start;
+                 grid-template-columns: 1fr 1fr;
+                 gap: 10px;
+                 width: 75%;
+                 padding: 0rem, 4rem;
 
              }
 
 
+             body:has(.project-page-grid) .home-btn {
+                 position: fixed;
+                 bottom: 20px;
+                 left: 50%;
+                 z-index: 100;
+                 transform: translateX(-50%);
+             }
+
+             body:has(.project-page-grid) nav,
+             body:has(.project-page-grid) .title-grid {
+                 position: fixed;
+                 top: 0;
+                 z-index: 100;
+                 background-color: var(--background-color);
+                 justify-content: flex-end;
+             }
          }
+
+
+
 
          @supports (scrollbar-color: auto) {
 

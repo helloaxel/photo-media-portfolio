@@ -248,12 +248,15 @@
              display: flex;
          }
 
-         .full-view-img {
 
-             width: 80%;
+         #lightbox-img {
+             max-width: 90vw;
+             max-height: 90vh;
+             width: auto;
              height: auto;
-
+             object-fit: contain;
          }
+         
 
          /* ------------------------------*/
 

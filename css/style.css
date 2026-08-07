@@ -122,7 +122,7 @@
             #insomnia { --tx: -25vw;  --ty: -8vh;}
             #faceshopping { --tx: -16vw;  --ty: -17vh;} 
             #ghostworld { --tx: -10vw;   --ty: -28vh;}
-            #maioris_decima { --tx: 0vw;  --ty: -32vh;}
+            #personal-projects { --tx: 0vw;  --ty: -32vh;}
             #portraits { --tx: 7vw;  --ty: -38vh;}
         }
 
@@ -131,7 +131,7 @@
             .gallery { height: auto; margin: 3rem auto; padding: 2rem 0;}
             .gallery-item { position: relative; transform: none; left: auto; top: auto; width: 90%; margin: 0 auto 1.25rem; display: block; }
             .gallery-item img { width: 100%; height: auto; object-fit: contain; }
-            #filles_eu,#insomnia,#faceshopping,#ghostworld,#maioris_decima,#portraits { --tx: 0; --ty: 0; --z: 1; }
+            #filles_eu,#insomnia,#faceshopping,#ghostworld,#personal-projects,#portraits { --tx: 0; --ty: 0; --z: 1; }
 
             footer{
                 position: relative;

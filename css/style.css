@@ -1,10 +1,10 @@
-        :root{
+        :root {
             --text: rgb(0, 0, 0);
             --background-color: rgb(255, 255, 255);
             --background-btn: rgb(0, 0, 0);
             --background-btn-inverse: rgb(255, 255, 255);
         }
-    
+
 
         body {
             overflow-x: hidden;
@@ -25,14 +25,14 @@
             transition: background-color 0.3s, color 0.3s ease;
         }
 
-        footer{
+        footer {
             display: inline;
             position: absolute;
             margin: 1% 0;
             color: var(--text);
             transition: background-color 0.3s, color 0.3s ease;
         }
-        
+
         figcaption {
             position: absolute;
             align-items: right;
@@ -40,6 +40,7 @@
             right: 0;
             color: var(--text);
         }
+
         /* -----------------------------
            Gallery layout (parent)
            ----------------------------- */
@@ -47,14 +48,17 @@
         .gallery {
             position: relative;
             width: 100%;
-            max-width: 1300px;            /* constrains group width */
-            height: min(65vh, 700px);     /* vertical space proportional to viewport */
-            margin: calc((100vh - min(65vh,700px)) / 2) auto 0; /* vertically center the gallery block in viewport */
+            max-width: 1300px;
+            /* constrains group width */
+            height: min(65vh, 700px);
+            /* vertical space proportional to viewport */
+            margin: calc((100vh - min(65vh, 700px)) / 2) auto 0;
+            /* vertically center the gallery block in viewport */
             display: block;
             overflow: visible;
             touch-action: manipulation;
         }
-        
+
         /* -----------------------------
            Gallery items (cards)
            ----------------------------- */
@@ -64,14 +68,15 @@
             top: 60%;
             left: 60%;
             transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 0));
-            width: clamp(160px, 25vw, 380px); /* responsive visual width */
+            width: clamp(160px, 25vw, 380px);
+            /* responsive visual width */
             height: clamp(240px, 40vh, 570px);
             z-index: var(--z, 1);
-            transition: transform 320ms cubic-bezier(.2,.9,.2,1), box-shadow 200ms ease, filter 200ms;
+            transition: transform 320ms cubic-bezier(.2, .9, .2, 1), box-shadow 200ms ease, filter 200ms;
             will-change: transform;
             pointer-events: auto;
         }
-        
+
         .gallery-item img {
             display: block;
             width: 100%;
@@ -89,77 +94,253 @@
         }
 
         .gallery-item:focus-within {
-            outline: 3px solid rgba(0,0,0,0.08);
+            outline: 3px solid rgba(0, 0, 0, 0.08);
             outline-offset: 6px;
         }
 
         /* per-item positions from center */
-        .position-1 { --tx: -30vw;  --ty: 4vh; --z: 6; }
-        .position-2 { --tx: -25vw;  --ty: -8vh;  --z: 5; }
-        .position-3 { --tx: -16vw;  --ty: -17vh;  --z: 4; } /* center card */
-        .position-4 { --tx: -10vw;   --ty: -28vh;  --z: 3; }
-        .position-5 { --tx: 0vw;  --ty: -32vh;    --z: 2; }
-        .position-6 { --tx: 7vw;  --ty: -38vh;    --z: 1; }
-        
-        
+        .position-1 {
+            --tx: -30vw;
+            --ty: 4vh;
+            --z: 6;
+        }
+
+        .position-2 {
+            --tx: -25vw;
+            --ty: -8vh;
+            --z: 5;
+        }
+
+        .position-3 {
+            --tx: -16vw;
+            --ty: -17vh;
+            --z: 4;
+        }
+
+        /* center card */
+        .position-4 {
+            --tx: -10vw;
+            --ty: -28vh;
+            --z: 3;
+        }
+
+        .position-5 {
+            --tx: 0vw;
+            --ty: -32vh;
+            --z: 2;
+        }
+
+        .position-6 {
+            --tx: 7vw;
+            --ty: -38vh;
+            --z: 1;
+        }
+
+
         /* -----------------------------
         Responsive adjustments
         ----------------------------- */
 
-        @media(min-width: 900px){
+        @media(min-width: 900px) {
 
-            body{
+            body {
                 overflow-y: hidden;
             }
 
 
         }
-        
+
         @media (max-width: 900px) {
-            .gallery { height: min(60vh,600px); margin: calc((100vh - min(60vh,600px)) / 2) auto 0; }
-            .gallery-item { width: clamp(140px, 28vw, 330px);}
-            #filles_eu { --tx: -30vw;  --ty: 4vh;}
-            #insomnia { --tx: -25vw;  --ty: -8vh;}
-            #faceshopping { --tx: -16vw;  --ty: -17vh;} 
-            #ghostworld { --tx: -10vw;   --ty: -28vh;}
-            #personal-projects { --tx: 0vw;  --ty: -32vh;}
-            #portraits { --tx: 7vw;  --ty: -38vh;}
-        }
+            .gallery {
+                height: min(60vh, 600px);
+                margin: calc((100vh - min(60vh, 600px)) / 2) auto 0;
+            }
 
-        @media (max-width: 500px) {
-            /* stack vertically on small screens */
-            .gallery { height: auto; margin: 3rem auto; padding: 2rem 0;}
-            .gallery-item { position: relative; transform: none; left: auto; top: auto; width: 90%; margin: 0 auto 1.25rem; display: block; }
-            .gallery-item img { width: 100%; height: auto; object-fit: contain; }
-            #filles_eu,#insomnia,#faceshopping,#ghostworld,#personal-projects,#portraits { --tx: 0; --ty: 0; --z: 1; }
+            .gallery-item {
+                width: clamp(140px, 28vw, 330px);
+            }
 
-            footer{
-                position: relative;
+            #filles_eu {
+                --tx: -30vw;
+                --ty: 4vh;
+            }
+
+            #insomnia {
+                --tx: -25vw;
+                --ty: -8vh;
+            }
+
+            #faceshopping {
+                --tx: -16vw;
+                --ty: -17vh;
+            }
+
+            #ghostworld {
+                --tx: -10vw;
+                --ty: -28vh;
+            }
+
+            #personal-projects {
+                --tx: 0vw;
+                --ty: -32vh;
+            }
+
+            #portraits {
+                --tx: 7vw;
+                --ty: -38vh;
             }
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .gallery-item { transition: none; }
-            .gallery-item:hover { transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 0)); }
+        @media (max-width: 767px) {
+            /* stack vertically on small screens */
+
+
+            figcaption,
+            footer,
+            .toggle-mode span,
+            body:has(.gallery) .home-btn {
+                display: none;
+            }
+
+            .gallery {
+                display: flex;
+                height: 50vh;
+                width: 50vw;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .gallery-item {
+                display: grid;
+                left: auto;
+                top: auto;
+                width: 100%;
+                margin: 0 auto 1.25rem;
+            }
+
+            .gallery-item img {
+                width: 50vw;
+                height: 25vh;
+                object-fit: cover;
+            }
+
+            .position-1 {
+                --tx: 25vw;
+                --ty: 18vh;
+            }
+
+            .position-2 {
+                --tx: 25vw;
+                --ty: 16vh;
+            }
+
+            .position-3 {
+                --tx: 25vw;
+                --ty: 14vh;
+            }
+
+            .position-4 {
+                --tx: 25vw;
+                --ty: 12vh;
+            }
+
+            .position-5 {
+                --tx: 25vw;
+                --ty: 10vh;
+            }
+
+            .position-6 {
+                --tx: 25vw;
+                --ty: 8vh;
+            }
+
+
+            .gallery-item {
+                transition:
+                    translate 0.4s ease-out 0s,
+                    rotate 0.3s ease-out 0.4s,
+                    scale 0.4s ease-out 0s,
+                    opacity 0.3s ease-out 0s;
+            }
+
+
+            .gallery.fanned-state .gallery-item {
+                scale: 0.85;
+            }
+
+
+            .gallery.fanned-state .position-1 {
+                translate: 25px 120px;
+                rotate: -25deg;
+            }
+
+            .gallery.fanned-state .position-2 {
+                translate: 25px 60px;
+                rotate: -25deg;
+            }
+
+            .gallery.fanned-state .position-3 {
+                translate: 25px 0;
+                rotate: -25deg;
+            }
+
+            .gallery.fanned-state .position-4 {
+                translate: 25px -60px;
+                rotate: -25deg;
+            }
+
+            .gallery.fanned-state .position-5 {
+                translate: 25px -120px;
+                rotate: -25deg;
+            }
+
+            .gallery.fanned-state .position-6 {
+                translate: 25px -180px;
+                rotate: -25deg;
+            }
+
+            .gallery-item.selected {
+                scale:1.05;
+                z-index: 10;
+                opacity: 1;
+            }
+
+            .gallery.fanned-state .gallery-item:not(.selected) {
+                opacity: 0.3;
+                scale:0.7;
+            }
+
         }
 
-        @media(prefers-color-scheme: dark){
-            :root{
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-item {
+                transition: none;
+            }
+
+            .gallery-item:hover {
+                transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 0));
+            }
+        }
+
+        @media(prefers-color-scheme: dark) {
+            :root {
                 --text: rgb(255, 255, 255);
                 --background-color: rgb(0, 0, 0);
-                --background-btn: rgb(255,255,255);
+                --background-btn: rgb(255, 255, 255);
                 --background-btn-inverse: rgb(0, 0, 0);
             }
         }
 
-        [data-theme = 'dark']{
-            --text: rgb(255,255,255);
-            --background-color: rgb(0, 0, 0); 
-            --background-btn: rgb(255,255,255);
+        [data-theme='dark'] {
+            --text: rgb(255, 255, 255);
+            --background-color: rgb(0, 0, 0);
+            --background-btn: rgb(255, 255, 255);
             --background-btn-inverse: rgb(0, 0, 0);
         }
-        
-        [data-theme = 'light']{
+
+        [data-theme='light'] {
             --text: rgb(0, 0, 0);
             --background-color: rgb(255, 255, 255);
             --background-btn: rgb(0, 0, 0);
@@ -169,7 +350,7 @@
 
 
         .home-btn,
-        button[name="home"]{
+        button[name="home"] {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -183,18 +364,18 @@
             overflow: hidden;
             transition: width .15s linear, border-radius .15s linear, background-color .15s linear, padding .15s linear;
         }
-        
+
 
         .home-btn.circle,
         button[name="home"].circle {
             height: 30px;
-            width: 20px;     
+            width: 20px;
             background: var(--background-btn-inverse);
             border-radius: 100px;
             transform: scale(0.5, 0.5);
         }
 
-        .toggle-mode{
+        .toggle-mode {
             display: inline-flex;
             flex-direction: row;
             align-items: flex-end;
@@ -209,11 +390,11 @@
             cursor: pointer;
         }
 
-        .toggle-mode span { 
-            font-size: 1.8rem; /*the toggle-icon is interpreted as text (Unicode)*/
+        .toggle-mode span {
+            font-size: 1.8rem;
+            /*the toggle-icon is interpreted as text (Unicode)*/
             color: var(--text);
             transition: color 0.3s ease;
 
-        
-        }
 
+        }

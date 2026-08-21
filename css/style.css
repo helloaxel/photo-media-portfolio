@@ -160,32 +160,32 @@
                 width: clamp(140px, 28vw, 330px);
             }
 
-            #filles_eu {
+            .position-1 {
                 --tx: -30vw;
                 --ty: 4vh;
             }
 
-            #insomnia {
+            .position-2 {
                 --tx: -25vw;
                 --ty: -8vh;
             }
 
-            #faceshopping {
+            .position-3 {
                 --tx: -16vw;
                 --ty: -17vh;
             }
 
-            #ghostworld {
+            .position-4 {
                 --tx: -10vw;
                 --ty: -28vh;
             }
 
-            #personal-projects {
+            .position-5 {
                 --tx: 0vw;
                 --ty: -32vh;
             }
 
-            #portraits {
+            .position-6 {
                 --tx: 7vw;
                 --ty: -38vh;
             }

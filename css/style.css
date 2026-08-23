@@ -194,7 +194,6 @@
         @media (max-width: 767px) {
             /* stack vertically on small screens */
 
-
             figcaption,
             footer,
             .toggle-mode span,
@@ -265,7 +264,6 @@
                     opacity 0.3s ease-out 0s;
             }
 
-
             .gallery.fanned-state .gallery-item {
                 scale: 0.85;
             }
@@ -301,15 +299,25 @@
                 rotate: -25deg;
             }
 
-            .gallery-item.selected {
-                scale:1.05;
+            .gallery.fanned-state .gallery-item.selected {
+                scale: 1.25;
                 z-index: 10;
                 opacity: 1;
+                translate: none;
+                rotate: none;
             }
 
-            .gallery.fanned-state .gallery-item:not(.selected) {
+            .gallery.fanned-state .gallery-item.selected figcaption {
+                display: block;
+                position: absolute;
+                bottom: 5rem;
+                right: 0;
+                font-size: 0.75rem;
+            }
+
+            .gallery.has-selection .gallery-item:not(.selected) {
                 opacity: 0.3;
-                scale:0.7;
+                scale: 0.6;
             }
 
         }

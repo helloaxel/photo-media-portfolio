@@ -77,24 +77,51 @@ if (window.matchMedia('(max-width: 767px)').matches) {
 
   gallery.addEventListener('click', e => {
     const card = e.target.closest('.gallery-item');
+    const isImgTap = e.target.tagName === 'IMG';
+    const selectedCard = gallery.querySelector('.gallery-item.selected');
+
 
     if (!gallery.classList.contains('fanned-state')) {
       gallery.classList.add('fanned-state');
-    } else if (card && !card.classList.contains('selected')) {
-      document.querySelectorAll('.gallery-item')
-        .forEach(c => c.classList.remove('selected'));
+      return;
+    
+    }
+
+      if (isImgTap && card && card === selectedCard) {
+        const link = card.closest('a');
+        if (link) window.location.href = link.href;
+        return;
+      }
+    
+
+    if (isImgTap && card && card != selectedCard) {
+      if (selectedCard) selectedCard.classList.remove('selected');
       card.classList.add('selected');
       gallery.classList.add('has-selection');
-    } else if (card && card.classList.contains('selected')) {
-      const link = card.closest('a');
-
-      if (link) window.location.href = link.href;
-    } else {
-      gallery.classList.remove('fanned-state');
-      gallery.classList.remove('has-selection');
-      document.querySelectorAll('.gallery-item')
-        .forEach(c => c.classList.remove('selected'));
+      return;
     }
-  });
-}
 
+    if(selectedCard){
+      selectedCard.classList.remove('selected');
+      gallery.classList.remove('has-selection');
+      return;
+    }
+
+
+ 
+    gallery.classList.remove('fanned-state');
+  
+
+  });
+
+  document.addEventListener('click', e => {
+    if (!gallery.contains(e.target)) {
+        gallery.classList.remove('fanned-state');
+        gallery.classList.remove('has-selection');
+        const selectedCard = gallery.querySelector('.gallery-item.selected');
+        if (selectedCard) selectedCard.classList.remove('selected');
+    }
+  })
+
+
+}

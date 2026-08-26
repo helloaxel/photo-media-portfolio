@@ -194,6 +194,10 @@
         @media (max-width: 767px) {
             /* stack vertically on small screens */
 
+            html, body{
+                overflow: hidden;
+            }
+
             figcaption,
             footer,
             .toggle-mode span,
@@ -218,12 +222,21 @@
                 width: 100%;
                 margin: 0 auto 1.25rem;
             }
+            
+            .gallery-item picture {
+                pointer-events: none;
+            }
+
+            .gallery-item picture img {
+                pointer-events: auto;
+            }
 
             .gallery-item img {
                 width: 50vw;
                 height: 25vh;
                 object-fit: cover;
             }
+
 
             .position-1 {
                 --tx: 25vw;

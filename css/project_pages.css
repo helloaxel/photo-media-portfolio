@@ -132,6 +132,15 @@ a:link,
 }
 
 
+.gallery img,
+.project-page-grid img {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+
 /* --------------Vertical display----------------*/
 
 
@@ -162,7 +171,14 @@ a:link,
     margin: 35px;
     display: flex;
     align-items: flex-start;
-    overflow: scroll;
+    /* overflow-y: hidden, not part of the 'overflow: scroll' shorthand this used to
+       be. That set both axes scrollable, and since every image shares a fixed
+       height there's nothing to scroll vertically anyway. Letting the Y axis
+       scroll too is what let touch drag move the gallery around freely instead of
+       locking to a clean horizontal swipe (contrast .project-page-vertical, which
+       already correctly locks to overflow-y only). */
+    overflow-x: scroll;
+    overflow-y: hidden;
     bottom: 1rem;
 }
 
@@ -260,6 +276,20 @@ a:link,
 
 @media(max-width: 767px) {
 
+    :root {
+        /* Real rendered height of the fixed nav bar: just its own padding (1em top +
+           1em bottom). .home-btn never contributes to it. home-btn is pulled out of
+           nav's flow via its own 'position:fixed' rule in every layout and
+           .toggle-mode is 'display:none' on mobile, so nav's content box is empty. */
+        --mobile-nav-space: 2em;
+        /* Footprint of the independently-fixed .home-btn at the screen bottom: its
+           own bottom offset (1.25rem) plus its height (30px, base.css). */
+        --mobile-actionbar-space: calc(1.25rem + 30px);
+    }
+
+    html{
+        overflow-x: hidden;
+    }
 
     .project-page-grid {
 
@@ -267,8 +297,12 @@ a:link,
         flex-direction: column;
         gap: 20px;
         width: 100%;
-        margin: 0;
-        padding: 0 14px;
+        box-sizing: border-box;
+        margin: 0 2.5rem;
+        /* no top padding needed: .title-grid (normal flow, right above this) already
+           clears the fixed nav and pushes this down naturally. bottom padding still
+           clears the independently-fixed .home-btn. */
+        padding: 0 1rem var(--mobile-actionbar-space);
 
     }
 
@@ -285,18 +319,35 @@ a:link,
 
     body:has(.project-page-grid) .home-btn {
         position: fixed;
-        bottom: 20px;
+        bottom: 1.25rem;
         left: 50%;
         z-index: 100;
         transform: translateX(-50%);
     }
 
-    body:has(.project-page-grid) nav,
-    body:has(.project-page-grid) .title-grid {
+    body:has(.project-page-grid) nav {
         position: fixed;
         top: 0;
         z-index: 100;
         justify-content: flex-end;
+        background-color: var(--background-color);
+    }
+
+    body:has(.project-page-grid) .title-grid {
+        /* moved out of <header> in the HTML so it's a normal sibling, not fixed and
+           it scrolls away with the page while the fixed nav above it stays pinned.
+           margin-top clears nav's real (fixed, out-of-flow) space; this replaces
+           the base rule's -3rem margin-top, which was tuned for a different,
+           non-mobile context. */
+        margin-top: var(--mobile-nav-space);
+        margin-bottom: 2rem;
+        padding-left: 1rem;
+    }
+
+
+
+    body:has(.project-page-grid) .toggle-mode {
+        display: none;
     }
 
 
@@ -305,41 +356,50 @@ a:link,
 
     body:has(.project-page-vertical) {
         overflow: hidden;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        /* reserves space so the gallery's bottom edge doesn't sit behind the
+           fixed .home-btn, instead of relying on 12vh+90vh happening to leave
+           enough of a gap. */
+        padding-bottom: var(--mobile-actionbar-space);
     }
 
     body:has(.project-page-vertical) .title-vertical {
-        position: relative;
+        position: static;
         margin: 0;
-        margin-top: -1rem;
-
     }
 
 
     .title-vertical {
         display: flex;
+        flex-direction: column;
         width: 90vw;
-        height: 12vh;
+        height: auto;
+        flex-shrink: 0;
     }
 
     .title-vertical h1,
     .title-vertical p {
-        position: relative;
-        font-size: small;
-    }
-
-    .title-vertical p {
-        top: -1rem;
+        position: static;
+        font-size: medium;
     }
 
     .project-page-vertical {
-
-        display: inline-block;
-        align-items: flex-start;
+        /* was a fixed 90vh guessed to leave room for the title above it.Now
+           takes whatever's actually left in the flex column and scrolls within
+           that, so it can't overflow past 100vh regardless of title height. */
+        display: block;
         overflow-y: scroll;
         overflow-x: hidden;
         overscroll-behavior-y: contain;
-        height: 90vh;
-        margin: auto;
+        flex: 1;
+        min-height: 0;
+        margin: 0 auto;
+        /* buffer inside the scrollable content itself so the last image scrolls
+           fully into view with room to spare, instead of ending flush at the
+           scroll boundary (felt "choppy" against iOS's own rubber-band bounce). */
+        padding-bottom: 18vh;
     }
 
     .project-page-vertical img {
@@ -378,20 +438,37 @@ a:link,
 
     body:has(.project-page-horizontal) {
         overflow: hidden;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 3vh;
+    }
+
+    body:has(.project-page-horizontal) header {
+        /*  mobile: keep header in normal flow instead of the desktop rule's
+           position:fixed. 'order' pushes it visually to
+           the bottom while it stays a real flex item with real height, instead of
+           an empty fixed shell floating over the actively-scrolling gallery (that
+           was making .home-btn visible but untappable)  */
+        position: static;
+        order: 1;
     }
 
     body:has(.project-page-horizontal) .title-horizontal {
-
+        /* margin lives here, not on the bare .title-horizontal rule below. This
+           compound selector is what the desktop rule also uses, and it
+           beats the plain class on specificity regardless of source order. */
         position: relative;
+        margin: 0 10vw 0 6vw;
     }
 
     .title-horizontal {
 
         display: flex;
-        margin: 0 10vw;
+        flex-direction: column;
         width: auto;
-        height: 7vh;
-        bottom: -2rem;
+        height: auto;
+        flex-shrink: 0;
     }
 
 
@@ -401,27 +478,26 @@ a:link,
     }
 
     .title-horizontal h1 {
-        position: absolute;
-        width: 8rem;
-        bottom: -28.5rem;
-        right: 11rem;
-
+        position: static;
     }
 
     .title-horizontal p {
-        position: relative;
-        bottom: -30.5rem;
+        position: static;
     }
 
 
     .project-page-horizontal {
+        /* was a fixed 64vh-image with a -14px-margin layout squeezed under an
+           absolutely-positioned title. Now fills whatever the flex column has
+           left after the title's real height. */
         display: flex;
         margin: 0;
         align-items: flex-start;
-        overflow: scroll;
+        overflow-x: scroll;
+        overflow-y: hidden;
         overscroll-behavior-x: contain;
-        bottom: 3rem;
-
+        flex: 1;
+        min-height: 0;
     }
 
     body:has(.project-page-horizontal) .home-btn {

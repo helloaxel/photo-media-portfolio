@@ -106,8 +106,7 @@ body:has(.project-page-grid) {
 .title-grid {
 
     padding-left: 6rem;
-    margin-top: -3rem;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 }
 
 .title-grid h1 {

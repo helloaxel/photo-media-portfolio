@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 
-const sourceDir = './assets/images/source';
-const outputDir ='./assets/images/sin-metadatos';
+const sourceDir = './assets/source/';
+const outputDir ='./assets/sin-metadatos/';
 
 // Crear carpeta de salida si no existe
 if (!fs.existsSync(outputDir)) {

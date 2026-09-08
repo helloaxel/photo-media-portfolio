@@ -2,7 +2,7 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-const sourceDir = './assets/images/source';
+const sourceDir = './assets/source/';
 
 //Obtener los archivos
 const archivos = fs.readdirSync(sourceDir)

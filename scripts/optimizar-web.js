@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 // Definir rutas relativas correctas
-const sourceDir = './assets/images/sin-metadatos';
-const outputDir = './assets/images/optimizadas';
+const sourceDir = './assets/sin-metadatos/';
+const outputDir = './assets/images/optimizadas/';
 
 // Crear carpeta output si no existe
 if (!fs.existsSync(outputDir)) {

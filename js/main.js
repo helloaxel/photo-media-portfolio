@@ -41,13 +41,14 @@ if (horizontalPage) {
 
 }
 
-const grid = document.querySelector('.project-page-grid')
+
+const expand = document.querySelector('.has-lightbox')
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 
-if (grid) {
+if (expand) {
 
-  document.querySelector('.project-page-grid').addEventListener('click', e => {
+  document.querySelector('.has-lightbox').addEventListener('click', e => {
     const img = e.target.closest('img');
     if (!img) return;
 

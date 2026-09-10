@@ -66,6 +66,43 @@ if (expand) {
 
 
 
+const spotlightGallery = document.querySelector('.gallery');
+const spotlightItems = spotlightGallery ? spotlightGallery.querySelectorAll('.gallery-item') : [];
+
+const clearSpotlightIfNoneActive = () => {
+  if (!spotlightGallery.querySelector('.gallery-item.is-spotlighted')) {
+    spotlightGallery.classList.remove('has-spotlight');
+  }
+};
+
+spotlightItems.forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    item.classList.add('is-spotlighted');
+    spotlightGallery.classList.add('has-spotlight');
+  });
+
+  item.addEventListener('mouseleave', () => {
+    item.classList.remove('is-spotlighted');
+    clearSpotlightIfNoneActive();
+  });
+});
+
+if (spotlightGallery) {
+  spotlightGallery.addEventListener('focusin', e => {
+    const item = e.target.closest('.gallery-item');
+    if (!item) return;
+    item.classList.add('is-spotlighted');
+    spotlightGallery.classList.add('has-spotlight');
+  });
+
+  spotlightGallery.addEventListener('focusout', e => {
+    const item = e.target.closest('.gallery-item');
+    if (!item) return;
+    item.classList.remove('is-spotlighted');
+    clearSpotlightIfNoneActive();
+  });
+}
+
 
 if (window.matchMedia('(max-width: 767px)').matches) {
   const gallery = document.querySelector('.gallery');

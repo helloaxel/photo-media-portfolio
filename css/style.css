@@ -1,340 +1,419 @@
+body {
+    overflow-x: hidden;
+    color: var(--text);
+    background-color: var(--background-color);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-        body {
-            overflow-x: hidden;
-            color: var(--text);
-            background-color: var(--background-color);
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: lighter;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+nav {
+    padding: 1em;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s ease;
+}
 
-        nav {
-            padding: 1em;
-            display: flex;
-            width: 100%;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            transition: background-color 0.3s, color 0.3s ease;
-        }
+footer {
+    display: inline;
+    position: absolute;
+    margin: 1% 0;
+    color: var(--text);
+    transition: background-color 0.3s, color 0.3s ease;
+}
 
-        footer {
-            display: inline;
-            position: absolute;
-            margin: 1% 0;
-            color: var(--text);
-            transition: background-color 0.3s, color 0.3s ease;
-        }
+figcaption {
+    position: absolute;
+    align-items: right;
+    bottom: -10%;
+    right: 0;
+    color: var(--text);
+}
 
-        figcaption {
-            position: absolute;
-            align-items: right;
-            bottom: 5%;
-            right: 0;
-            color: var(--text);
-        }
-
-        /* -----------------------------
+/* -----------------------------
            Gallery layout (parent)
-           ----------------------------- */
-        /* container: center group and provide a positioning context */
-        .gallery {
-            position: relative;
-            width: 100%;
-            max-width: 1300px;
-            /* constrains group width */
-            height: min(65vh, 700px);
-            /* vertical space proportional to viewport */
-            margin: calc((100vh - min(65vh, 700px)) / 2) auto 0;
-            /* vertically center the gallery block in viewport */
-            display: block;
-            overflow: visible;
-            touch-action: manipulation;
-        }
+ ----------------------------- */
+/* container: center group and provide a positioning context */
+.gallery {
+    position: relative;
+    width: 100%;
+    max-width: 1300px;
+    height: min(65vh, 700px);
+    margin: calc((100vh - min(65vh, 700px)) / 2) auto 0;
+    display: block;
+    overflow: visible;
+    touch-action: manipulation;
+    /* shrinks the whole deck ( card + offsets between them) as one
+       solid unit, so the ratio between card size-spacing (the
+       thing that rules hover-precision friction) never changes.*/
+    transform: scale(0.85);
+    /* matches the 60%/60% anchor .gallery-item positions are built from. Without
+       it, the shrink drifts off-anchor instead of contracting symmetrically
+       around the point the deck actually radiates from. */
+    transform-origin: 60% 60%;
+}
 
-        /* -----------------------------
+/* -----------------------------
            Gallery items (cards)
-           ----------------------------- */
-        /* each card is absolutely positioned around the center */
-        .gallery-item {
-            position: absolute;
-            top: 60%;
-            left: 60%;
-            transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 0));
-            width: clamp(160px, 25vw, 380px);
-            /* responsive visual width */
-            height: clamp(240px, 40vh, 570px);
-            z-index: var(--z, 1);
-            transition: transform 320ms cubic-bezier(.2, .9, .2, 1), box-shadow 200ms ease, filter 200ms;
-            will-change: transform;
-            pointer-events: auto;
-        }
+  ----------------------------- */
+/* each card is absolutely positioned around the center */
+.gallery-item {
+    position: absolute;
+    top: 60%;
+    left: 60%;
+    transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 0));
+    width: clamp(160px, 25vw, 380px);
+    height: clamp(240px, 40vh, 570px);
+    z-index: var(--z, 1);
+    transition: transform 320ms cubic-bezier(.2, .9, .2, 1), box-shadow 200ms ease, filter 200ms;
+    will-change: transform;
+    pointer-events: auto;
+}
 
-        .gallery-item img {
-            display: block;
-            width: 100%;
-            height: 89%;
-            object-fit: cover;
-            cursor: pointer;
-        }
+.gallery-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
 
-        .gallery-item:hover,
-        .gallery-item:focus-within,
-        .gallery-item:focus {
-            transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 0)) scale(1.06);
-            z-index: calc(var(--z, 1) + 10);
-            filter: saturate(1.05) contrast(1.02);
-        }
+/*     .gallery-item itself never moves on hover, only this inner wrapper does, avoiding :hover false firing.
+        Keeping the hover-detecting box stationary while only its content visually moves out to the spotlight zone avoids that entirely. */
+.card-frame {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 320ms cubic-bezier(.2, .9, .2, 1);
+}
 
-        .gallery-item:focus-within {
-            outline: 3px solid rgba(0, 0, 0, 0.08);
-            outline-offset: 6px;
-        }
+/* the hovered/focused card's frame leaves its deck slot and moves to a fixed zone on the right, growing withouth exceeding its own clamp() max size.
+  Same target regardless of which position was hovered. */
+.gallery-item:hover .card-frame,
+.gallery-item:focus-within .card-frame,
+.gallery-item:focus .card-frame {
+    /* cancel this position's own --tx/--ty first (otherwise would inherit and render wherever its
+    parent already placed) so every card meets on the exact same spotlight target regardless of where it started. 
+    Without this, "translate(Xvw,-Yvh)" was relative to each card's own starting point, not an absolute zone*/
 
-        /* per-item positions from center */
-        .position-1 {
-            --tx: -30vw;
-            --ty: 4vh;
-            --z: 6;
-        }
+    transform: translate(calc(-1 * var(--tx, 0)), calc(-1 * var(--ty, 0))) translate(20vw, -8vh) scale(1.2);
+}
 
-        .position-2 {
-            --tx: -25vw;
-            --ty: -8vh;
-            --z: 5;
-        }
+.gallery-item:hover,
+.gallery-item:focus-within,
+.gallery-item:focus {
+    z-index: 50;
+    filter: saturate(1.05) contrast(1.02);
+}
 
-        .position-3 {
-            --tx: -16vw;
-            --ty: -17vh;
-            --z: 4;
-        }
+.gallery-item:focus-within {
+    outline: 3px solid rgba(0, 0, 0, 0.08);
+    outline-offset: 6px;
+}
 
-        /* center card */
-        .position-4 {
-            --tx: -10vw;
-            --ty: -28vh;
-            --z: 3;
-        }
+/* Actioned by explicit classes rather than :has(.gallery-item:hover) because Safari doesn't keep that cross-sibling
+:has() check in sync with rapid hover changes (stuck opacity, motion only firing after repeated hovers);. */
+.gallery.has-spotlight .gallery-item:not(.is-spotlighted) .card-frame {
+    transform: translate(-12vw, -8vh) scale(0.5);
+    opacity: 0.5;
+}
 
-        .position-5 {
-            --tx: 0vw;
-            --ty: -32vh;
-            --z: 2;
-        }
+.gallery-item:hover figcaption,
+.gallery-item:focus-within figcaption {
 
-        .position-6 {
-            --tx: 7vw;
-            --ty: -38vh;
-            --z: 1;
-        }
+    position: absolute;
+    top: 100%;
+    bottom: auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    margin-top: 0.5rem;
+    width: max-content;
+    text-align: center;
+}
+
+.cap-year {
+    display: none;
+}
+
+.gallery-item:hover figcaption .cap-title,
+.gallery-item:focus-within figcaption .cap-title {
+    display: block;
+    font-size: small;
+    font-weight: bold;
+}
+
+.gallery-item:hover figcaption .cap-year,
+.gallery-item:focus-within figcaption .cap-year {
+    display: block;
+    font-style: italic;
+    font-weight: normal;
+}
 
 
-        /* -----------------------------
+
+.position-1 {
+    --tx: -40vw;
+    --ty: 4vh;
+    --z: 6;
+}
+
+.position-2 {
+    --tx: -30vw;
+    --ty: -8vh;
+    --z: 5;
+}
+
+.position-3 {
+    --tx: -20vw;
+    --ty: -20vh;
+    --z: 4;
+}
+
+/* center card */
+.position-4 {
+    --tx: -10vw;
+    --ty: -32vh;
+    --z: 3;
+}
+
+.position-5 {
+    --tx: 0vw;
+    --ty: -40vh;
+    --z: 2;
+}
+
+.position-6 {
+    --tx: 10vw;
+    --ty: -48vh;
+    --z: 1;
+}
+
+
+
+
+
+/* -----------------------------
         Responsive adjustments
-        ----------------------------- */
+ ----------------------------- */
 
-        @media(min-width: 900px) {
+@media(min-width: 900px) {
 
-            body {
-                overflow-y: hidden;
-            }
-
-
-        }
-
-        @media (max-width: 900px) {
-            .gallery {
-                height: min(60vh, 600px);
-                margin: calc((100vh - min(60vh, 600px)) / 2) auto 0;
-            }
-
-            .gallery-item {
-                width: clamp(140px, 28vw, 330px);
-            }
-
-            .position-1 {
-                --tx: -30vw;
-                --ty: 4vh;
-            }
-
-            .position-2 {
-                --tx: -25vw;
-                --ty: -8vh;
-            }
-
-            .position-3 {
-                --tx: -16vw;
-                --ty: -17vh;
-            }
-
-            .position-4 {
-                --tx: -10vw;
-                --ty: -28vh;
-            }
-
-            .position-5 {
-                --tx: 0vw;
-                --ty: -32vh;
-            }
-
-            .position-6 {
-                --tx: 7vw;
-                --ty: -38vh;
-            }
-        }
-
-        @media (max-width: 767px) {
-            /* stack vertically on small screens */
-
-            html, body{
-                overflow: hidden;
-            }
-
-            figcaption,
-            footer,
-            .toggle-mode span,
-            body:has(.gallery) .home-btn {
-                display: none;
-            }
-
-            .gallery {
-                display: flex;
-                height: 50vh;
-                width: 50vw;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            .gallery-item {
-                display: grid;
-                left: auto;
-                top: auto;
-                width: 100%;
-                margin: 0 auto 1.25rem;
-            }
-            
-            .gallery-item picture {
-                pointer-events: none;
-            }
-
-            .gallery-item picture img {
-                pointer-events: auto;
-            }
-
-            .gallery-item img {
-                width: 50vw;
-                height: 25vh;
-                object-fit: cover;
-            }
+    body {
+        overflow-y: hidden;
+    }
 
 
-            .position-1 {
-                --tx: 25vw;
-                --ty: 18vh;
-            }
+}
 
-            .position-2 {
-                --tx: 25vw;
-                --ty: 16vh;
-            }
+@media (max-width: 900px) {
+    .gallery {
+        height: min(60vh, 600px);
+        margin: calc((100vh - min(60vh, 600px)) / 2) auto 0;
+    }
 
-            .position-3 {
-                --tx: 25vw;
-                --ty: 14vh;
-            }
+    .gallery-item {
+        width: clamp(140px, 28vw, 330px);
+    }
 
-            .position-4 {
-                --tx: 25vw;
-                --ty: 12vh;
-            }
+    .position-1 {
+        --tx: -30vw;
+        --ty: 4vh;
+    }
 
-            .position-5 {
-                --tx: 25vw;
-                --ty: 10vh;
-            }
+    .position-2 {
+        --tx: -25vw;
+        --ty: -8vh;
+    }
 
-            .position-6 {
-                --tx: 25vw;
-                --ty: 8vh;
-            }
+    .position-3 {
+        --tx: -16vw;
+        --ty: -17vh;
+    }
+
+    .position-4 {
+        --tx: -10vw;
+        --ty: -28vh;
+    }
+
+    .position-5 {
+        --tx: 0vw;
+        --ty: -32vh;
+    }
+
+    .position-6 {
+        --tx: 7vw;
+        --ty: -38vh;
+    }
 
 
-            .gallery-item {
-                transition:
-                    translate 0.4s ease-out 0s,
-                    rotate 0.3s ease-out 0.4s,
-                    scale 0.4s ease-out 0s,
-                    opacity 0.3s ease-out 0s;
-            }
+}
 
-            .gallery.fanned-state .gallery-item {
-                scale: 0.85;
-            }
+@media (max-width: 767px) {
+
+    html,
+    body {
+        overflow: hidden;
+    }
+
+    figcaption,
+    footer,
+    .toggle-mode span,
+    body:has(.gallery) .home-btn {
+        display: none;
+    }
+
+    .gallery {
+        display: flex;
+        height: 50vh;
+        width: 50vw;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .gallery-item {
+        display: grid;
+        left: auto;
+        top: auto;
+        width: 100%;
+        margin: 0 auto 1.25rem;
+    }
+
+    .gallery-item picture {
+        pointer-events: none;
+    }
+
+    .gallery-item picture img {
+        pointer-events: auto;
+    }
+
+    .gallery-item img {
+        width: 50vw;
+        height: 25vh;
+        object-fit: cover;
+    }
 
 
-            .gallery.fanned-state .position-1 {
-                translate: 25px 120px;
-                rotate: -25deg;
-            }
+    .position-1 {
+        --tx: 25vw;
+        --ty: 18vh;
+    }
 
-            .gallery.fanned-state .position-2 {
-                translate: 25px 60px;
-                rotate: -25deg;
-            }
+    .position-2 {
+        --tx: 25vw;
+        --ty: 16vh;
+    }
 
-            .gallery.fanned-state .position-3 {
-                translate: 25px 0;
-                rotate: -25deg;
-            }
+    .position-3 {
+        --tx: 25vw;
+        --ty: 14vh;
+    }
 
-            .gallery.fanned-state .position-4 {
-                translate: 25px -60px;
-                rotate: -25deg;
-            }
+    .position-4 {
+        --tx: 25vw;
+        --ty: 12vh;
+    }
 
-            .gallery.fanned-state .position-5 {
-                translate: 25px -120px;
-                rotate: -25deg;
-            }
+    .position-5 {
+        --tx: 25vw;
+        --ty: 10vh;
+    }
 
-            .gallery.fanned-state .position-6 {
-                translate: 25px -180px;
-                rotate: -25deg;
-            }
+    .position-6 {
+        --tx: 25vw;
+        --ty: 8vh;
+    }
 
-            .gallery.fanned-state .gallery-item.selected {
-                scale: 1.25;
-                z-index: 10;
-                opacity: 1;
-                translate: none;
-                rotate: none;
-            }
+    /* block the desktop spotlight behavior on mobile because iOS Safari can apply a lingering :hover/:focus-within after a tap, which would
+    fight the fan/select transforms with the desktop spotlight transform on .card-frame. Also covers .has-spotlight/.is-spotlighted js's focusin/focusout 
+    listeners for that are not restricted to desktop only, so a tap can trigger them here too. */
+    .gallery-item:hover .card-frame,
+    .gallery-item:focus-within .card-frame,
+    .gallery-item:focus .card-frame {
+        transform: none;
+    }
 
-            .gallery.fanned-state .gallery-item.selected figcaption {
-                display: block;
-                position: absolute;
-                bottom: 5rem;
-                right: 0;
-                font-size: 0.75rem;
-            }
+    .gallery.has-spotlight .gallery-item:not(.is-spotlighted) .card-frame {
+        transform: none;
+        opacity: 1;
+    }
 
-            .gallery.has-selection .gallery-item:not(.selected) {
-                opacity: 0.3;
-                scale: 0.6;
-            }
 
-        }
+    .gallery-item {
+        transition:
+            translate 0.4s ease-out 0s,
+            rotate 0.3s ease-out 0.4s,
+            scale 0.4s ease-out 0s,
+            opacity 0.3s ease-out 0s;
+    }
 
-        @media (prefers-reduced-motion: reduce) {
-            .gallery-item {
-                transition: none;
-            }
+    .gallery.fanned-state .gallery-item {
+        scale: 0.85;
+    }
 
-            .gallery-item:hover {
-                transform: translate(-50%, -50%) translate(var(--tx, 0), var(--ty, 0));
-            }
-        }
 
+    .gallery.fanned-state .position-1 {
+        translate: 25px 120px;
+        rotate: -25deg;
+    }
+
+    .gallery.fanned-state .position-2 {
+        translate: 25px 60px;
+        rotate: -25deg;
+    }
+
+    .gallery.fanned-state .position-3 {
+        translate: 25px 0;
+        rotate: -25deg;
+    }
+
+    .gallery.fanned-state .position-4 {
+        translate: 25px -60px;
+        rotate: -25deg;
+    }
+
+    .gallery.fanned-state .position-5 {
+        translate: 25px -120px;
+        rotate: -25deg;
+    }
+
+    .gallery.fanned-state .position-6 {
+        translate: 25px -180px;
+        rotate: -25deg;
+    }
+
+    .gallery.fanned-state .gallery-item.selected {
+        scale: 1.25;
+        z-index: 10;
+        opacity: 1;
+        translate: none;
+        rotate: none;
+    }
+
+    .gallery.fanned-state .gallery-item.selected figcaption {
+        display: block;
+        position: absolute;
+        bottom: 5rem;
+        right: 0;
+        font-size: 0.75rem;
+    }
+
+    .gallery.has-selection .gallery-item:not(.selected) {
+        opacity: 0.3;
+        scale: 0.6;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .gallery-item,
+    .card-frame {
+        transition: none;
+    }
+}

@@ -307,6 +307,7 @@ figcaption {
 
     .gallery-item picture img {
         pointer-events: auto;
+        border-radius: 5%;
     }
 
     .gallery-item img {
@@ -364,7 +365,7 @@ figcaption {
 
     .gallery-item {
         transition:
-            translate 0.25s ease-out 0s,
+            translate 0.3s ease-out 0s,
             rotate 0.3s ease-out 0.4s,
             scale 0.4s ease-out 0s,
             opacity 0.3s ease-out 0s;

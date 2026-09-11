@@ -36,7 +36,7 @@ if (horizontalPage) {
 
   horizontalPage.addEventListener('wheel', e => {
     e.preventDefault();
-    e.currentTarget.scrollLeft += e.deltaY;
+    e.currentTarget.scrollLeft += e.deltaX;
   });
 
 }

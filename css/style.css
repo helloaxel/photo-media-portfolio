@@ -115,7 +115,7 @@ figcaption {
 }
 
 /* Actioned by explicit classes rather than :has(.gallery-item:hover) because Safari doesn't keep that cross-sibling
-:has() check in sync with rapid hover changes (stuck opacity, motion only firing after repeated hovers);. */
+:has() check in sync with rapid hover changes (stuck opacity, motion only firing after repeated hovers). */
 .gallery.has-spotlight .gallery-item:not(.is-spotlighted) .card-frame {
     transform: translate(-12vw, -8vh) scale(0.5);
     opacity: 0.5;
@@ -276,12 +276,29 @@ figcaption {
         transform: translate(-50%, -50%);
     }
 
+    
+
+
+    /*Scaling the container itself keeping its gap between and tap ratios inside, 
+    so overall footprint stays the same, just the cards inside shrink*/
+    .gallery.fanned-state {
+        transform: translate(-50%, -50%) scale(0.85);
+    }
+
+    .gallery.deck.fanned-state {
+        transform: translate(-50%, -50%) translate(3vw, -6vh) scale(0.90);
+    }
+
     .gallery-item {
         display: grid;
         left: auto;
         top: auto;
         width: 100%;
+           /*had to override height's desktop because it was making an invisible tap-target overhang past the visble card,
+           colliding with neighbors regardless of how much translate spacing they had*/
+        height: 25vh;
         margin: 0 auto 1.25rem;
+        
     }
 
     .gallery-item picture {
@@ -301,32 +318,33 @@ figcaption {
 
     .position-1 {
         --tx: 25vw;
-        --ty: 18vh;
+        --ty: 16vh;
+    
     }
 
     .position-2 {
         --tx: 25vw;
-        --ty: 16vh;
+        --ty: 15vh;
     }
 
     .position-3 {
         --tx: 25vw;
-        --ty: 14vh;
+        --ty: 15vh;
     }
 
     .position-4 {
         --tx: 25vw;
-        --ty: 12vh;
+        --ty: 14vh;
     }
 
     .position-5 {
         --tx: 25vw;
-        --ty: 10vh;
+        --ty: 12vh;
     }
 
     .position-6 {
         --tx: 25vw;
-        --ty: 8vh;
+        --ty: 12vh;
     }
 
     /* block the desktop spotlight behavior on mobile because iOS Safari can apply a lingering :hover/:focus-within after a tap, which would
@@ -346,53 +364,71 @@ figcaption {
 
     .gallery-item {
         transition:
-            translate 0.4s ease-out 0s,
+            translate 0.25s ease-out 0s,
             rotate 0.3s ease-out 0.4s,
             scale 0.4s ease-out 0s,
             opacity 0.3s ease-out 0s;
     }
 
+  
+  
+
+    
+    /*Reset desktop stacking order because it was messing with the fan transitions by normalizing every card to the same baseline,
+    making only the one with .selected stand out. Ties between equal-z elements now resolve by DOM order instead*/
+
+    /*Specific and independent transform properties (from container's own) to shrink card's footprint withouth touching the 120px gap below*/
     .gallery.fanned-state .gallery-item {
-        scale: 0.85;
+        transform: translate(-6vw, -3vh) scale(0.85); 
+        transform-origin: 50%, 50%;
+        z-index: 1;
     }
 
 
+
+
+    /* Widened the steps in between because z-index only decides who wins where cards overlap, it can't reduce
+       how much they overlap in the first place. At lower steps, adjacent cards effective footprint (a rotated rectangle's bounding box is bigger than its own box) overlapped too
+       heavily that tap precision was almost impossible regardless of z-index scheme. */
+
     .gallery.fanned-state .position-1 {
-        translate: 25px 120px;
+        translate: 25px 220px;
         rotate: -25deg;
     }
 
     .gallery.fanned-state .position-2 {
-        translate: 25px 60px;
+        translate: 25px 80px;
         rotate: -25deg;
     }
 
     .gallery.fanned-state .position-3 {
-        translate: 25px 0;
+        translate: 25px -20px;
         rotate: -25deg;
     }
 
     .gallery.fanned-state .position-4 {
-        translate: 25px -60px;
+        translate: 25px -140px;
         rotate: -25deg;
     }
 
     .gallery.fanned-state .position-5 {
-        translate: 25px -120px;
+        translate: 25px -260px;
         rotate: -25deg;
     }
 
     .gallery.fanned-state .position-6 {
-        translate: 25px -180px;
+        translate: 25px -380px;
         rotate: -25deg;
     }
 
     .gallery.fanned-state .gallery-item.selected {
-        scale: 1.25;
+        transform: translateY(-2rem);
+        scale: 1.70;
         z-index: 10;
         opacity: 1;
-        translate: none;
         rotate: none;
+        translate: none;
+
     }
 
     .gallery.fanned-state .gallery-item.selected figcaption {
@@ -404,8 +440,8 @@ figcaption {
     }
 
     .gallery.has-selection .gallery-item:not(.selected) {
-        opacity: 0.3;
-        scale: 0.6;
+        opacity: 0.5;
+        scale: 0.7;
     }
 
 }

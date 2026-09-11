@@ -48,13 +48,23 @@ const lightboxImg = document.getElementById('lightbox-img');
 
 if (expand) {
 
-  document.querySelector('.has-lightbox').addEventListener('click', e => {
+  expand.addEventListener('click', e => {
     const img = e.target.closest('img');
     if (!img) return;
 
     lightboxImg.src = img.src;
 
-    lightbox.classList.add('active');
+    /* decode() resolves once the image is actually ready to paint, not just once it's requested. 
+    Revealing the lightbox before this was what made the transition feel slow: the overlay popped up blank,
+    then the image filled in a beat later once decoding finished. Falls back to revealing immediately if decode() itself isn't supported.*/
+
+    if (lightboxImg.decode) {
+      lightboxImg.decode()
+        .then(() => lightbox.classList.add('active'))
+        .catch(() => lightbox.classList.add('active'));
+    } else {
+      lightbox.classList.add('active');
+    }
 
   });
 

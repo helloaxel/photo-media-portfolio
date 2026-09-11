@@ -265,19 +265,28 @@ confined within the margins of the '.project-page-horizontal' limits, giving a c
     opacity: 0.5 ;
 }
 
+/* display:none can't be transitioned (it's a discrete on/off property, and
+   an element isn't in the render tree at all while it's set), so a fade
+   needs a different hidden state: always display:flex, hidden via
+   opacity:0 instead. pointer-events:none while hidden is required, not
+   optional — without it this invisible fixed, inset:0 element would still
+   silently swallow every tap on the page underneath it. */
 .lightbox {
-    display: none;
+    display: flex;
     position: fixed;
     inset: 0;
-    background-color: rgba(255, 255, 255, 0.493);
-    backdrop-filter: blur(40px);
+    background-color: var(--background-color);
     z-index: 100;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
 }
 
 .lightbox.active {
-    display: flex;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 

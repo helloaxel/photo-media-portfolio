@@ -307,13 +307,14 @@ figcaption {
 
     .gallery-item picture img {
         pointer-events: auto;
-        border-radius: 5%;
+
     }
 
     .gallery-item img {
         width: 50vw;
         height: 25vh;
         object-fit: cover;
+        border-radius: 5%;
     }
 
 
